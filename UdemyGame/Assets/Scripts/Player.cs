@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     Rigidbody2D rb;
     Animator anim;
 
+    public int health;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,10 +46,21 @@ public class Player : MonoBehaviour
         //Storing player's move
         //float input = Input.GetAxis("Horizontal"); GetAxis -> 바로 -1, 1로 바뀌는게 아니라 점점 -1이나 1로 다가감.
         input = Input.GetAxisRaw("Horizontal"); // GetAxisRaw -> 바로 -1, 1로 바뀜
-        print(input);
+
 
         //Moving player
         rb.velocity = new Vector2(input * speed, rb.velocity.y); //(x-가로움직임, y-세로움직임)
         //y는 조작할 필요가 없어서 그냥 rb.velocity.y로 current value 로 설정해줌.
+    }
+
+    public void TakeDamage(int damageAmount)
+    {
+        health -= damageAmount;
+
+        if(health <= 0)
+        {
+            //DESTROY PLAYER
+            Destroy(gameObject);
+        }
     }
 }
